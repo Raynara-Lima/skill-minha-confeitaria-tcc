@@ -1,4 +1,9 @@
+
 {
+  "name":"teste-projeto-tcc",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server"}, 
   "dependencies": {
     "express": "^4.18.2"
   }
