@@ -4,7 +4,7 @@ const port = process.env.PORT || 8080
 var db = require("./db");
 
 
-app.post('/DefinirTempoForno' , (req, res) => {
+app.get('/DefinirTempoForno' , (req, res) => {
   console.log(req)
   // const topicName = 'Car_input';
 
