@@ -5,7 +5,9 @@ var db = require("./db");
 
 
 app.get('/DefinirTempoForno' , (req, res) => {
-  console.log(req)
+  json = {"message": "success", "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
+   console.log(req)
+  res.send(json)  
   // const topicName = 'Car_input';
 
   // let json = JSON.parse(req.query[0])
