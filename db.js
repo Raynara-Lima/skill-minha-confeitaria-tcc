@@ -6,7 +6,7 @@ mongoose.connect('mongodb+srv://raynara:Raynara17*@cluster0.chxp5i9.mongodb.net/
 
 var produtoNoFornoSchema = new mongoose.Schema({
 
-        nomePro: String,
+        nomePro: {type: String, unique: true},
         hora: String, 
         tempo: String
 }, {collection: 'produtoNoForno' }
