@@ -6,7 +6,6 @@ var db = require("./db");
 
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
-  const data = req.query[0];
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
   var info = new ProdutoNoForno(data);
     info.save(function (err) {
@@ -15,7 +14,7 @@ app.post('/DefinirTempoForno', (req, res) => {
           res.send(err)
         }
       else {
-        res.send(data)      
+        res.send(json)      
         }
       });
   
