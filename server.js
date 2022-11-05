@@ -6,19 +6,18 @@ var db = require("./db");
 
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
-  const data = JSON.stringify(json);
-          res.send(json.nomePro)      
-//   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
-//   var info = new ProdutoNoForno(data);
-//     info.save(function (err) {
-//       if (err) {
-//           console.log("Error! " + err.message);
-//           res.send(err)
-//         }
-//       else {
-//         res.send(json.nomePro)      
-//         }
-//       });
+  data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};
+  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+  var info = new ProdutoNoForno(data);
+    info.save(function (err) {
+      if (err) {
+          console.log("Error! " + err.message);
+          res.send(err)
+        }
+      else {
+        res.send(json.nomePro)      
+        }
+      });
   
 })
 app.get('/', (req, res) => {
