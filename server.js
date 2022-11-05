@@ -20,6 +20,25 @@ app.post('/DefinirTempoForno', (req, res) => {
       });
   
 })
+app.get('/ConsultarTempoRestante', (req, res) => {
+  let json = JSON.parse(req)
+  const data = JSON.stringify( json);
+  res.send(data)
+
+//   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
+//   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+//   var info = new ProdutoNoForno(data);
+//     info.save(function (err, doc) {
+//       if (err) {
+//           console.log("Error! " + err.message);
+//           res.send(err)
+//         }
+//       else {
+//         res.send({code: 1})      
+//         }
+//       });
+  
+})
 app.get('/', (req, res) => {
   json = {"message": "success", "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
 res.send(json)
