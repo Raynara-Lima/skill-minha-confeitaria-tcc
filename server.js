@@ -15,7 +15,7 @@ app.post('/DefinirTempoForno', (req, res) => {
           res.send(err)
         }
       else {
-        res.send({code: "1"})      
+        res.send({code: 1})      
         }
       });
   
