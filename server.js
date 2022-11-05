@@ -12,7 +12,7 @@ app.post('/DefinirTempoForno', (req, res) => {
     info.save(function (err, doc) {
       if (err) {
           console.log("Error! " + err.message);
-          res.send(err.code)
+          res.send(err)
         }
       else {
         res.send({code: "1"})      
