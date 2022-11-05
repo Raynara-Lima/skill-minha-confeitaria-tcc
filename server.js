@@ -9,14 +9,13 @@ app.post('/DefinirTempoForno', (req, res) => {
   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
   var info = new ProdutoNoForno(data);
-  db.collection("produtoNoForno").insertOne(data, function(err, res) {
-//     info.save(function (err, doc) {
+    info.save(function (err, doc) {
       if (err) {
           console.log("Error! " + err.message);
-          res.send(err)
+          res.send(err.code)
         }
       else {
-        res.send(res)      
+        res.send({code: "1"})      
         }
       });
   
