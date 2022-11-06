@@ -21,8 +21,9 @@ app.post('/DefinirTempoForno', (req, res) => {
   
 })
 app.get('/ConsultarTempoRestante', (req, res) => {
-  let json = JSON.parse(req.query[0])
-  ProdutoNoForno.findOne({nomePro: "bolo"}).lean().exec(
+  let json = JSON.parse(req.query[0]);
+  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+  ProdutoNoForno.findOne({nomePro: json.produto}).lean().exec(
     function (e, docs) {
       res.send(docs)
     })  
