@@ -24,7 +24,7 @@ app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req.query[0])
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
   const doc =  ProdutoNoForno.find({nomePro: json.produto}).lean().exec();
-  res.send({"nomePro": json.produto})
+  res.send(doc)
   
 })
 app.get('/', (req, res) => {
