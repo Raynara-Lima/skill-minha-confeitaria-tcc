@@ -24,7 +24,7 @@ app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req.query[0])
   ProdutoNoForno.findOne({nomePro: "bolo"}).lean().exec(
     function (e, docs) {
-      res.send(doc)
+      res.send(docs)
     })  
 })
 app.get('/', (req, res) => {
