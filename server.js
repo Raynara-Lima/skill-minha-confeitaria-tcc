@@ -23,7 +23,7 @@ app.post('/DefinirTempoForno', (req, res) => {
 app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req)
   const data = JSON.stringify( json);
-  res.send(data)
+  res.send(json)
 
 //   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
 //   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
