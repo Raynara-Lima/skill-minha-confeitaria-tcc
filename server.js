@@ -22,10 +22,10 @@ app.post('/DefinirTempoForno', (req, res) => {
 })
 app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req.query[0])
-  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
-  const doc =  ProdutoNoForno.find({nomePro: json.produto}).lean().exec();
-  res.send(doc)
-  
+  ProdutoNoForno.findOne({nomePro: "bolo"}).lean().exec(
+    function (e, docs) {
+      res.send(doc)
+    })  
 })
 app.get('/', (req, res) => {
   json = {"message": "success", "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
