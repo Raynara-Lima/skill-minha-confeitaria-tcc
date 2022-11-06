@@ -25,7 +25,11 @@ app.get('/ConsultarTempoRestante', (req, res) => {
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
   ProdutoNoForno.findOne({nomePro: json.produto}).lean().exec(
     function (e, docs) {
-      res.send(docs)
+      if(docs === null){
+        res.send({code: 0})
+      }else{
+        res.send(docs)
+      }
     })  
 })
 app.get('/', (req, res) => {
