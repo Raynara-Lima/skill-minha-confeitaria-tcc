@@ -21,7 +21,7 @@ app.post('/DefinirTempoForno', (req, res) => {
   
 })
 app.get('/ConsultarTempoRestante', (req, res) => {
-  let json = JSON.parse(req)
+  let json = JSON.parse(req.query)
   const data = JSON.stringify( json);
   res.send(data)
 
