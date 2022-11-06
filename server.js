@@ -22,21 +22,9 @@ app.post('/DefinirTempoForno', (req, res) => {
 })
 app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req.query[0])
-  const data = "teste"//{"produto": "bolo"} //JSON.stringify( json);
-  res.send(json)
-
-//   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
-//   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
-//   var info = new ProdutoNoForno(data);
-//     info.save(function (err, doc) {
-//       if (err) {
-//           console.log("Error! " + err.message);
-//           res.send(err)
-//         }
-//       else {
-//         res.send({code: 1})      
-//         }
-//       });
+  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+  const doc =  ProdutoNoForno.find({nomePro: json.produto}).lean().exec();
+  res.send(doc)
   
 })
 app.get('/', (req, res) => {
