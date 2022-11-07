@@ -39,12 +39,13 @@ app.get('/ConsultarTempoRestante', (req, res) => {
 
 app.post('/AdicionarIngredienteEstoque', (req, res) => {
   let json = JSON.parse(req.query[0])
-  data = {"ingrediente": json.ingrediente, "quantidade": json.quantidade};
-  var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
-  Estoque.findOneAndUpdate({ingrediente: json.ingrediente}, data, {upsert: true}, function(err, doc) {
-    if (err) return res.send(500, {error: err});
-    return res.send({code: 1});
-});
+//   data = {"ingrediente": json.ingrediente, "quantidade": json.quantidade};
+//   var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
+//   Estoque.findOneAndUpdate({ingrediente: json.ingrediente}, data, {upsert: true}, function(err, doc) {
+//     if (err) return res.send(500, {error: err});
+//     return res.send({code: 1});
+// });
+  return res.send(json)
 })
 
 app.get('/', (req, res) => {
