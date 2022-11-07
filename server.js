@@ -47,6 +47,21 @@ app.post('/AdicionarIngredienteEstoque', (req, res) => {
 });
 })
 
+app.post('/ConsultarIngredienteEstoque', (req, res) => {
+  let json = JSON.parse(req.query[0])
+  var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
+  Estoque.findOne({ingrediente: json.ingrediente}).lean().exec(
+    function (e, docs) {
+      if(docs === null){
+        res.send({code: 0})
+      }else{
+        res.send(docs)
+      }
+    })  
+})
+
+
+
 app.get('/', (req, res) => {
   json = {"message": "success", "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
 res.send(json)
