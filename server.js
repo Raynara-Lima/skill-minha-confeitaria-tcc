@@ -79,9 +79,9 @@ app.post('/ExcluirIngredienteEstoque', (req, res) => {
               }
             })
         }else if(qtd === 0){
-          Estoque.findOneAndDelete({ingrediente: "farinha"}, function(err, doc) {
+          Estoque.findOneAndDelete({ingrediente: json.ingrediente}, function(err, doc) {
             if (err) return res.send(500, {error: err});
-            return res.send({code: -1});
+            return res.send({code: 1});
         })
         }else{
           docs.code = -1
