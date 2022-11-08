@@ -60,7 +60,36 @@ app.post('/ConsultarIngredienteEstoque', (req, res) => {
     })  
 })
 
-
+app.post('/ExcluirIngredienteEstoque', (req, res) => {
+  let json = JSON.parse(req.query[0])
+  var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
+  Estoque.findOne({"ingrediente": json.ingrediente}).lean().exec(
+    function (e, doc) {
+      if(doc === null){
+        res.send({code: 0})
+      }else{
+        const qtd = doc.quantidade - json.quantidade;
+        if(qtd> 0){
+          Estoque.findOneAndUpdate({"ingrediente": json.ingrediente}, {quantidade: qtd}, {new: true}, function (err, obj) {
+              if (err){
+                res.send(err)
+              }
+              else{
+                res.send(obj)
+              }
+            })
+        }else if(qtd === 0){
+          Estoque.findOneAndDelete({ingrediente: "farinha"}, function(err, doc) {
+            if (err) return res.send(500, {error: err});
+            return res.send({code: -1});
+        })
+        }else{
+          docs.code = -1
+          res.send(doc)
+        }
+     }
+    }) 
+})
 
 app.get('/', (req, res) => {
   json = {"message": "success", "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
