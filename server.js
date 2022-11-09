@@ -91,6 +91,30 @@ app.post('/ExcluirIngredienteEstoque', (req, res) => {
     }) 
 })
 
+app.get('/forno', (req, res) => {
+     let json = JSON.parse(req.query[0]);
+
+  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+  var info = new Forno({"isLigado": 1});
+    info.save(function (err, doc) {
+      if (err) {
+          console.log("Error! " + err.message);
+          res.send(err)
+        }
+      else {
+        res.send({code: 1})      
+        }
+      });
+//   let led = 0
+//   if(req.query[0]){
+//    let json = JSON.parse(req.query[0]);
+//     led = json.led
+//   }
+//   json = {"message": led, "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
+// res.send(json)
+})
+
+
 app.get('/', (req, res) => {
   let led = 0
   if(req.query[0]){
