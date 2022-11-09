@@ -120,7 +120,7 @@ app.get('/', (req, res) => {
     InfoJson.findOne().lean().exec(
         function (e, docs) {
             //  console.log(docs)
-          res.send(docs)
+          res.send(docs.isLigado)
           // return callback(docs)
 
         });
