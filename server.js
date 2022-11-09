@@ -116,13 +116,19 @@ app.get('/forno', (req, res) => {
 
 
 app.get('/', (req, res) => {
-  let led = 0
-  if(req.query[0]){
-   let json = JSON.parse(req.query[0]);
-    led = json.led
-  }
-  json = {"message": led, "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
-res.send(json)
+  var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+    InfoJson.findOne().lean().exec(
+        function (e, docs) {
+            //  console.log(docs)
+          res.send(docs)
+          // return callback(docs)
+
+        });
+  
+//   let led = 0
+  
+//   json = {"message": led, "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
+// res.send(json)
 })
 
 
