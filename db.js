@@ -16,6 +16,10 @@ var estoqueSchema = new mongoose.Schema({
         quantidade: Number, 
 }, {collection: 'estoque' }
 );
+var fornoSchema = new mongoose.Schema({
+        isLigado: Number,
+}, {collection: 'forno' }
+);
 
-module.exports = { Mongoose: mongoose, produtoNoFornoSchema: produtoNoFornoSchema, estoqueSchema: estoqueSchema} 
+module.exports = { Mongoose: mongoose, produtoNoFornoSchema: produtoNoFornoSchema, estoqueSchema: estoqueSchema, fornoSchema: fornoSchema} 
 
