@@ -11,6 +11,7 @@ app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
   var info = new ProdutoNoForno(data);
     info.save(function (err, doc) {
       if (err) {
@@ -18,6 +19,7 @@ app.post('/DefinirTempoForno', (req, res) => {
           res.send(err)
         }
       else {
+        Forno.findOneAndUpdate({"id": 0}, {"isLigado": 1},{upsert: true}).exec()
         res.send({code: 1})      
         }
       });
