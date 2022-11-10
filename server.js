@@ -97,8 +97,8 @@ app.get('/forno', (req, res) => {
   Forno.findOneAndUpdate({"id": 0}, {"isLigado": json.isLigado},{upsert: true}, function(err, doc) {
     if (err) return res.send({error: err});
     return res.send({code: 1});
+  })
 })
-
 
 app.get('/', (req, res) => {
   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
