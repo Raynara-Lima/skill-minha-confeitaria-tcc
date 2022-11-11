@@ -9,7 +9,7 @@ app.listen(port, () => {
 app.get('/teste', async (req, res) => {
   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
   let doc = await Forno.findOneAndDelete({"id": 0}).exec()
-  var info = new Forno({"isLigado" : 0, "notificacao": 1});
+  var info = new Forno({"id": 0, "isLigado" : 0, "notificacao": 1});
   info.save(function (err, doc) {
     if (err) {
         console.log("Error! " + err.message);
