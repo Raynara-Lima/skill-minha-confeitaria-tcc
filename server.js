@@ -6,7 +6,7 @@ var db = require("./db");
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-app.post('/teste', (req, res) => {
+app.get('/teste', (req, res) => {
     var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
   Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true},  function(err, doc) {
         if (err) return res.send({error: err});
