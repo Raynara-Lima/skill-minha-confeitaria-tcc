@@ -8,7 +8,7 @@ app.listen(port, () => {
 })
 app.get('/teste', async (req, res) => {
   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-  await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0}, {upsert: true}, function(err, doc) {
+ Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0}, {upsert: true}, function(err, doc) {
      if (err) return res.send({error: err});
      return res.send({code: 1});
  })
