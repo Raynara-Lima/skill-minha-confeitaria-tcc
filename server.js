@@ -113,7 +113,7 @@ app.get('/', (req, res) => {
     InfoJson.findOne().lean().exec(
         function (e, docs) {
             //  console.log(docs)
-        res.send({"isLigado": docs.isLigado, "notificacao": docs.nofiticacao})
+        res.send({"isLigado": docs.nofiticacao, "notificacao": docs.nofiticacao})
           // return callback(docs)
 
         });
