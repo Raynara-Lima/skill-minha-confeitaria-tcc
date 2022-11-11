@@ -6,7 +6,9 @@ var db = require("./db");
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
+app.post('/teste', (req, res) => {
+  console.log(req.query)
+})
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
