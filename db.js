@@ -19,6 +19,7 @@ var estoqueSchema = new mongoose.Schema({
 var fornoSchema = new mongoose.Schema({
         id: 0,
         isLigado: Number,
+        notificacao: Number,
 }, {collection: 'forno' }
 );
 
