@@ -6,16 +6,12 @@ var db = require("./db");
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-app.get('/teste', async (req, res) => {
-     var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-   await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true}).exec()
- Forno.findOne().lean().exec(
-        function (e, docs) {
-            //  console.log(docs)
-        res.send({"isLigado": docs.notificacao})
-          // return callback(docs)
-
-        });
+app.post('/teste', (req, res) => {
+    var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+  Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true},  function(err, doc) {
+        if (err) return res.send({error: err});
+        return res.send({code: 1});
+    })
 })
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
