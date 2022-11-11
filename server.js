@@ -7,11 +7,19 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 app.get('/teste', (req, res) => {
-    var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-  Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true},  function(err, doc) {
-        if (err) return res.send({error: err});
-        return res.send({code: 1});
-    })
+  var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+    InfoJson.findOne().lean().exec(
+        function (e, docs) {
+            //  console.log(docs)
+        res.send({"isLigado": docs.isLigado})
+          // return callback(docs)
+
+        });
+//     var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+//   Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true},  function(err, doc) {
+//         if (err) return res.send({error: err});
+//         return res.send({code: 1});
+//     })
 })
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
