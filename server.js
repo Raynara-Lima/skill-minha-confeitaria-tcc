@@ -8,7 +8,7 @@ app.listen(port, () => {
 })
 app.get('/teste', async (req, res) => {
   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-  let doc = await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true})
+  let doc = await Forno.updateOne({"id": 0}, {"notificacao": 1} ,{upsert: true})
   res.send(doc)
 })
 app.post('/DefinirTempoForno', (req, res) => {
