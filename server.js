@@ -8,8 +8,17 @@ app.listen(port, () => {
 })
 app.get('/teste', async (req, res) => {
   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-  let doc = await Forno.updateOne({"id": 0}, {"notificacao": 1} ,{upsert: true})
-  res.send(doc)
+  let doc = await Forno.findOneAndDelete({"id": 0}).exec()
+  var info = new Forno({"isLigado" : 0, "notificacao": 1});
+  info.save(function (err, doc) {
+    if (err) {
+        console.log("Error! " + err.message);
+        res.send(err)
+      }
+    else {
+      res.send({code: 1})      
+      }
+    });
 })
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
