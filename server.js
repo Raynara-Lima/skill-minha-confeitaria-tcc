@@ -8,8 +8,11 @@ app.listen(port, () => {
 })
 app.get('/teste', (req, res) => {
     var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-    Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true}).exec()
-  res.send("teste");
+    var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+  Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true},  function(err, doc) {
+        if (err) return res.send({error: err});
+        return res.send({code: 1});
+    })
 })
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
