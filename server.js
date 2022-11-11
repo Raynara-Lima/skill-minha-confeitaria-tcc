@@ -7,7 +7,7 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 app.get('/teste', (req, res) => {
-res.send({code: 1})   
+res.send({code: req.query})   
 })
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
