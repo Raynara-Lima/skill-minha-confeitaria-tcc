@@ -6,9 +6,9 @@ var db = require("./db");
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-app.get('/teste', (req, res) => {
+app.get('/teste',async (req, res) => {
     var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-  Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true})
+  await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0} ,{upsert: true})
 })
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
