@@ -122,7 +122,13 @@ app.get('/', async (req, res) => {
   const horaAtual = new Date().toLocaleTimeString( {timeZone: 'America/Fortaleza'}, { hour: '2-digit', minute: '2-digit' })
   let horaFormatada = moment(horaAtual, "HH:mm").format("HH:mm")
   const tempoPassado =  moment(horaFormatada, 'HH:mm').subtract(element.hora, 'HH:mm').format('HH:mm');
-      res.send({"tempoRestante": tempoPassado})
+         let resultado;
+  if(tempoPassado > moment(element.tempo, 'm').format('HH:mm')){
+    resultado = 0;
+  }else{
+    resultado = moment(element.tempo, 'm').subtract(tempoPassado, 'm').format('m');
+  }
+      res.send({"tempoRestante": resultado})
 //       if(tempoRestante == 0){
 //         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
 //         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
