@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 3000
 var db = require("./db");
 
 app.listen(port, () => {
@@ -108,11 +108,11 @@ app.get('/forno', (req, res) => {
   })
 })
 
+
 app.get('/', async (req, res) => {
   let count = 0, forno;
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-
    const docs = await ProdutoNoForno.find().exec();
 
     docs.forEach(
@@ -167,4 +167,3 @@ const calcularTempoRestante = (hora, tempo) =>{
   }
   return resultado;
 }
-
