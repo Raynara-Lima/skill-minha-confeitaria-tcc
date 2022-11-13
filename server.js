@@ -115,33 +115,33 @@ app.get('/', async (req, res) => {
   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
    const docs = await ProdutoNoForno.find().exec();
 
-    docs.forEach(
-      async function (element) {
-      let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
-      if(tempoRestante == 0){
-        await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
-        await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
-      }
-    })
-    count = await ProdutoNoForno.countDocuments({}).exec()
+//     docs.forEach(
+//       async function (element) {
+//       let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
+//       if(tempoRestante == 0){
+//         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
+//         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
+//       }
+//     })
+//     count = await ProdutoNoForno.countDocuments({}).exec()
   
-//     console.log("Count: ", count)
+// //     console.log("Count: ", count)
    
-    if(count === 0){
-      Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
-    }
-    forno = await Forno.findOne().lean().exec();
-    res.send({"isLigado": forno.isLigado, "notificacao": forno.notificacao})
+//     if(count === 0){
+//       Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
+//     }
+//     forno = await Forno.findOne().lean().exec();
+//     res.send({"isLigado": forno.isLigado, "notificacao": forno.notificacao})
 
 
-//   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-//     InfoJson.findOne().lean().exec(
-//         function (e, docs) {
-//             //  console.log(docs)
-//         res.send({"isLigado": docs.isLigado, "notificacao": docs.notificacao})
-//           // return callback(docs)
+  var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+    InfoJson.findOne().lean().exec(
+        function (e, docs) {
+            //  console.log(docs)
+        res.send({"isLigado": docs.isLigado, "notificacao": docs.notificacao})
+          // return callback(docs)
 
-//         });
+        });
   
 //   let led = 0
   
