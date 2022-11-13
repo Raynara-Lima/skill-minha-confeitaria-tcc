@@ -123,13 +123,13 @@ app.get('/', async (req, res) => {
         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
       }
     })
-//     count = await ProdutoNoForno.countDocuments({}).exec()
+    count = await ProdutoNoForno.countDocuments({}).exec()
   
 //     console.log("Count: ", count)
    
-//     if(count === 0){
-//       Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
-//     }
+    if(count === 0){
+      Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
+    }
 //     forno = await Forno.findOne().lean().exec();
 //     res.send({"isLigado": 1, "notificacao": 0})
 
