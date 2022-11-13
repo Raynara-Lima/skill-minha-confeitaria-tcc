@@ -118,20 +118,21 @@ app.get('/', async (req, res) => {
     docs.forEach(
       async function (element) {
       let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
-      if(tempoRestante == 0){
-        await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
-        await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
-      }
+      res.send({"tempoRestante": tempoRestante})
+//       if(tempoRestante == 0){
+//         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
+//         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
+//       }
     })
-    count = await ProdutoNoForno.countDocuments({}).exec()
+   // count = await ProdutoNoForno.countDocuments({}).exec()
   
 //     console.log("Count: ", count)
    
-    if(count === 0){
-      Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
-    }
-    forno = await Forno.findOne().lean().exec();
-    res.send({"isLigado": forno.isLigado, "notificacao": forno.notificacao})
+//     if(count === 0){
+//       Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
+//     }
+//     forno = await Forno.findOne().lean().exec();
+//     res.send({"isLigado": forno.isLigado, "notificacao": forno.notificacao})
 
 
 //   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
