@@ -117,11 +117,11 @@ app.get('/', async (req, res) => {
 
     docs.forEach(
       async function (element) {
-      let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
-//       if(tempoRestante == 0){
-//         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
-//         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
-//       }
+      let tempoRestante = 1;//calcularTempoRestante(element.hora, element.tempo)
+      if(tempoRestante == 0){
+        await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
+        await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
+      }
     })
     count = await ProdutoNoForno.countDocuments({}).exec()
   
