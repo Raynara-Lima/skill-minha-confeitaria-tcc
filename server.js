@@ -110,20 +110,20 @@ app.get('/forno', (req, res) => {
 
 
 app.get('/', async (req, res) => {
-  let count = 0, forno;
-  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
-  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-   const docs = await ProdutoNoForno.find().exec();
+//   let count = 0, forno;
+//   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+//   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+//    const docs = await ProdutoNoForno.find().exec();
 
-    docs.forEach(
-      async function (element) {
-      let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
-      console.log("tempo restante: ", tempoRestante)
-      if(tempoRestante == 0){
-        await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
-        await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
-      }
-    })
+//     docs.forEach(
+//       async function (element) {
+//       let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
+//       console.log("tempo restante: ", tempoRestante)
+//       if(tempoRestante == 0){
+//         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
+//         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
+//       }
+//     })
 //     count = await ProdutoNoForno.countDocuments({}).exec()
   
 //     console.log("Count: ", count)
