@@ -118,27 +118,20 @@ app.get('/', async (req, res) => {
     docs.forEach(
       async function (element) {
       let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
-      const moment = require('moment');  
-  const horaAtual = new Date().toLocaleTimeString( "pt-BR", {timeZone: 'America/Fortaleza', hour12: false})
-  let horaFormatada = moment(horaAtual, "HH:mm").format("HH:mm")
-  const tempoPassado =  moment(horaFormatada, 'HH:mm').subtract(element.hora, 'HH:mm').format('HH:mm');
-         let resultado = moment(element.tempo, 'm').format('HH:mm');
- 
-      res.send({"horaAtual": horaFormatada, "tempoPassado": tempoPassado, "res": resultado})
-//       if(tempoRestante == 0){
-//         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
-//         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
-//       }
+      if(tempoRestante == 0){
+        await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
+        await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
+      }
     })
-   // count = await ProdutoNoForno.countDocuments({}).exec()
+   count = await ProdutoNoForno.countDocuments({}).exec()
   
-//     console.log("Count: ", count)
+    console.log("Count: ", count)
    
-//     if(count === 0){
-//       Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
-//     }
-//     forno = await Forno.findOne().lean().exec();
-//     res.send({"isLigado": forno.isLigado, "notificacao": forno.notificacao})
+    if(count === 0){
+      Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
+    }
+    forno = await Forno.findOne().lean().exec();
+    res.send({"isLigado": forno.isLigado, "notificacao": forno.notificacao})
 
 
 //   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
@@ -159,7 +152,7 @@ app.get('/', async (req, res) => {
 
 const calcularTempoRestante = (hora, tempo) =>{
   const moment = require('moment');  
-  const horaAtual = new Date().toLocaleTimeString( {timeZone: 'America/Fortaleza'}, { hour: '2-digit', minute: '2-digit' })
+  const horaAtual = new Date().toLocaleTimeString("pt-BR", {timeZone: 'America/Fortaleza', hour12: false})
   let horaFormatada = moment(horaAtual, "HH:mm").format("HH:mm")
   const tempoPassado =  moment(horaFormatada, 'HH:mm').subtract(hora, 'HH:mm').format('HH:mm');
   let resultado;
