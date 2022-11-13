@@ -124,7 +124,7 @@ app.get('/', async (req, res) => {
   const tempoPassado =  moment(horaFormatada, 'HH:mm').subtract(element.hora, 'HH:mm').format('HH:mm');
          let resultado = moment(element.tempo, 'm').format('HH:mm');
  
-      res.send({"tempoPassado": tempoPassado, "res": resultado})
+      res.send({"horaAtual": horaFormatada, "tempoPassado": tempoPassado, "res": resultado})
 //       if(tempoRestante == 0){
 //         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
 //         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
