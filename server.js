@@ -131,13 +131,9 @@ app.get('/', async (req, res) => {
     if(count === 0){
       Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
     }
-    Forno.findOne().lean().exec(
-      function (e, docs) {
-           console.log(docs)
-      res.send({"isLigado": docs.isLigado, "notificacao": docs.notificacao})
-        // return callback(docs)
+    forno = await Forno.findOne().lean().exec();
+    res.send({"isLigado": forno.isLigado, "notificacao": forno.notificacao})
 
-      });
 //   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
 //     InfoJson.findOne().lean().exec(
 //         function (e, docs) {
