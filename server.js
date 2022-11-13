@@ -118,7 +118,7 @@ app.get('/', async (req, res) => {
     docs.forEach(
       async function (element) {
       let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
-      res.send({"tempoRestante": tempoRestante})
+      res.send({"tempoRestante": element.hora})
 //       if(tempoRestante == 0){
 //         await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
 //         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
