@@ -132,7 +132,7 @@ app.get('/', async (req, res) => {
       Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
     }
     forno = await Forno.findOne().lean().exec();
-    res.send({"isLigado": 1, "notificacao": 0})
+    return res.send({"isLigado": 1, "notificacao": 0})
 
 
 //   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
