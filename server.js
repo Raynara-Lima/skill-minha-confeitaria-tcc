@@ -119,7 +119,7 @@ app.get('/', async (req, res) => {
       async function (element) {
       let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
       const moment = require('moment');  
-  const horaAtual = new Date().toLocaleTimeString( {timeZone: 'America/Fortaleza'}, { hour: '2-digit', minute: '2-digit' })
+  const horaAtual = new Date().toLocaleTimeString( "pt-BR", {timeZone: 'America/Fortaleza', hour12: false})
   let horaFormatada = moment(horaAtual, "HH:mm").format("HH:mm")
   const tempoPassado =  moment(horaFormatada, 'HH:mm').subtract(element.hora, 'HH:mm').format('HH:mm');
          let resultado = moment(element.tempo, 'm').format('HH:mm');
