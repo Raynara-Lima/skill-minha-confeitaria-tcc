@@ -109,14 +109,43 @@ app.get('/forno', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-  var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-    InfoJson.findOne().lean().exec(
-        function (e, docs) {
-            //  console.log(docs)
-        res.send({"isLigado": docs.isLigado, "notificacao": docs.notificacao})
-          // return callback(docs)
+  let count = 0, forno;
+  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
 
-        });
+   const docs = await ProdutoNoForno.find().exec();
+
+    docs.forEach(
+      async function (element) {
+      let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
+      console.log("tempo restante: ", tempoRestante)
+      if(tempoRestante == 0){
+        await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
+        await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
+      }
+    })
+    count = await ProdutoNoForno.countDocuments({}).exec()
+  
+    console.log("Count: ", count)
+   
+    if(count === 0){
+      Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
+    }
+    Forno.findOne().lean().exec(
+      function (e, docs) {
+           console.log(docs)
+      res.send({"isLigado": docs.isLigado, "notificacao": docs.notificacao})
+        // return callback(docs)
+
+      });
+//   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+//     InfoJson.findOne().lean().exec(
+//         function (e, docs) {
+//             //  console.log(docs)
+//         res.send({"isLigado": docs.isLigado, "notificacao": docs.notificacao})
+//           // return callback(docs)
+
+//         });
   
 //   let led = 0
   
