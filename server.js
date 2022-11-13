@@ -108,7 +108,7 @@ app.get('/forno', (req, res) => {
   })
 })
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   let count = 0, forno;
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
   var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
