@@ -3,7 +3,14 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://raynara:Raynara17*@cluster0.chxp5i9.mongodb.net/?retryWrites=true', {  useNewUrlParser: true, useUnifiedTopology: true });
 
-
+var pedidoSchema = new mongoose.Schema({
+        nomeCli: String,
+        hora: String, 
+        dia: String,
+        produto: String,
+        quantidade: Number
+}, {collection: 'pedido' }
+);
 var produtoNoFornoSchema = new mongoose.Schema({
         nomePro: {type: String, unique: true},
         hora: String, 
@@ -23,5 +30,5 @@ var fornoSchema = new mongoose.Schema({
 }, {collection: 'forno' }
 );
 
-module.exports = { Mongoose: mongoose, produtoNoFornoSchema: produtoNoFornoSchema, estoqueSchema: estoqueSchema, fornoSchema: fornoSchema} 
+module.exports = { Mongoose: mongoose, pedidoSchema: pedidoSchema, produtoNoFornoSchema: produtoNoFornoSchema, estoqueSchema: estoqueSchema, fornoSchema: fornoSchema} 
 
