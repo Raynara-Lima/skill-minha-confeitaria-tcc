@@ -3,21 +3,39 @@ const app = express()
 const port = process.env.PORT || 3000
 var db = require("./db");
 
+var Pedido = db.Mongoose.model('pedido', db.pedidoSchema, 'pedido');
+var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
+var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
+var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 app.get('/teste', async (req, res) => {
-  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
  Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0}, {upsert: true}, function(err, doc) {
      if (err) return res.send({error: err});
      return res.send({code: 1});
  })
 })
+
+app.post('/AdicionarPedido', (req, res) => {
+   let json = JSON.parse(req.query[0])
+  data = {"nomeCli": json.nomeCli, "hora": json.hora, "dia": json.dia, "produto": json.produto, "quantidade": json.quantidade};
+  var pedido = new Pedido(data);
+  pedido.save(function (err, doc) {
+      if (err) {
+          console.log("Error! " + err.message);
+          res.send(err)
+        }
+      else {
+        res.send({code: 1})      
+        }
+      });
+})
+
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
-  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
-  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
   var info = new ProdutoNoForno(data);
     info.save(function (err, doc) {
       if (err) {
@@ -34,7 +52,6 @@ app.post('/DefinirTempoForno', (req, res) => {
 
 app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req.query[0]);
-  var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
   ProdutoNoForno.findOne({nomePro: json.produto}).lean().exec(
     function (e, docs) {
       if(docs === null){
@@ -48,7 +65,6 @@ app.get('/ConsultarTempoRestante', (req, res) => {
 app.post('/AdicionarIngredienteEstoque', (req, res) => {
   let json = JSON.parse(req.query[0])
   data = {"ingrediente": json.ingrediente, "quantidade": json.quantidade};
-  var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
   Estoque.findOneAndUpdate({ingrediente: json.ingrediente}, data, {upsert: true}, function(err, doc) {
     if (err) return res.send(500, {error: err});
     return res.send({code: 1});
@@ -57,7 +73,6 @@ app.post('/AdicionarIngredienteEstoque', (req, res) => {
 
 app.post('/ConsultarIngredienteEstoque', (req, res) => {
   let json = JSON.parse(req.query[0])
-  var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
   Estoque.findOne({ingrediente: json.ingrediente}).lean().exec(
     function (e, docs) {
       if(docs === null){
@@ -70,7 +85,6 @@ app.post('/ConsultarIngredienteEstoque', (req, res) => {
 
 app.post('/ExcluirIngredienteEstoque', (req, res) => {
   let json = JSON.parse(req.query[0])
-  var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
   Estoque.findOne({"ingrediente": json.ingrediente}).lean().exec(
     function (e, doc) {
       if(doc === null){
@@ -101,7 +115,6 @@ app.post('/ExcluirIngredienteEstoque', (req, res) => {
 
 app.get('/forno', (req, res) => {
   let json = JSON.parse(req.query[0]);
-  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
   Forno.findOneAndUpdate({"id": 0}, {"isLigado": json.isLigado},{upsert: true}, function(err, doc) {
     if (err) return res.send({error: err});
     return res.send({code: 1});
@@ -112,7 +125,6 @@ app.get('/forno', (req, res) => {
 app.get('/', async (req, res) => {
   let count = 0, forno;
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
-  var Forno = db.Mongoose.model('forno', db.fornoSchema, 'forno');
    const docs = await ProdutoNoForno.find().exec();
 
     docs.forEach(
