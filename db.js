@@ -8,7 +8,7 @@ var pedidoSchema = new mongoose.Schema({
         hora: String, 
         dia: String,
         produto: String,
-        quantidade: Number.
+        quantidade: Number,
         status: String
 }, {collection: 'pedido' }
 );
