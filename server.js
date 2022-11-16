@@ -33,7 +33,7 @@ app.post('/AdicionarPedido', (req, res) => {
       });
 })
 
-app.post('/FinalizarPedido', (req, res) => {
+app.get('/FinalizarPedido', (req, res) => {
    let json = JSON.parse(req.query[0])
   Pedido.find({nomeCli: json.nomeCli}).lean().exec(
     function (e, docs) {
