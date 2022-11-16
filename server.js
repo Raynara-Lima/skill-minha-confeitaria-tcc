@@ -33,6 +33,19 @@ app.post('/AdicionarPedido', (req, res) => {
       });
 })
 
+app.post('/FinalizarPedido', (req, res) => {
+   let json = JSON.parse(req.query[0])
+  Pedido.find({nomeCli: json.nomeCli}).lean().exec(
+    function (e, docs) {
+      if(docs === null){
+        res.send({code: 0})
+      }else{
+        docss = docs
+        console.log(docs)
+      }
+    })  
+})
+
 app.post('/DefinirTempoForno', (req, res) => {
   let json = JSON.parse(req.query[0])
   data = {"nomePro": json.nomePro, "hora": json.hora, "tempo": json.tempo};//JSON.stringify(json);
