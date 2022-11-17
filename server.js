@@ -48,7 +48,13 @@ app.get('/getPedidosCli', (req, res) => {
 
 app.post('/FinalizarPedido', (req, res) => {
    let json = JSON.parse(req.query[0])
-  Pedido.findOneAndUpdate({_id: json.id}, {status: "FINALIZADO"}, function(err, doc) {
+   let filro;
+   if(json.id){
+     filtro = {_id: json.id}
+   }else{
+     filtro = {nomeCli: json.nomeCli}
+   }
+  Pedido.findOneAndUpdate(filtro, {status: "FINALIZADO"}, function(err, doc) {
             if (err) return res.send(500, {error: err});
             return res.send({code: 1});
         })
