@@ -17,7 +17,7 @@ app.get('/teste', async (req, res) => {
      return res.send({code: 1});
  })
 })
-app.get('/ConsultarIngredienteEstoque', (req, res) => {
+app.get('/ConsultarAgenda', (req, res) => {
   let json = JSON.parse(req.query[0])
   Pedido.find({dia: json.dia}).lean().exec(
     function (e, docs) {
