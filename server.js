@@ -33,9 +33,9 @@ app.post('/AdicionarPedido', (req, res) => {
       });
 })
 
-app.get('/FinalizarPedido', (req, res) => {
+app.get('/getPedidos', (req, res) => {
    let json = JSON.parse(req.query[0])
-  Pedido.find({nomeCli: json.nomeCli}).lean().exec(
+  Pedido.find({nomeCli: json.nomeCli, status: "AGENDADO"}).lean().exec(
     function (e, docs) {
       if(docs === null){
         res.send({code: 0})
@@ -44,6 +44,14 @@ app.get('/FinalizarPedido', (req, res) => {
 
       }
     })  
+})
+
+app.get('/FinalizarPedido', (req, res) => {
+   let json = JSON.parse(req.query[0])
+  Pedido.findOneAndUpdate({_id: json.id}, {status: "FINALIZADO"}, function(err, doc) {
+            if (err) return res.send(500, {error: err});
+            return res.send({code: 1});
+        })
 })
 
 app.post('/DefinirTempoForno', (req, res) => {
