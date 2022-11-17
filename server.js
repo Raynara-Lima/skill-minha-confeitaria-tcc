@@ -33,7 +33,7 @@ app.post('/AdicionarPedido', (req, res) => {
       });
 })
 
-app.get('/getPedidos', (req, res) => {
+app.get('/getPedidosCli', (req, res) => {
    let json = JSON.parse(req.query[0])
   Pedido.find({nomeCli: json.nomeCli, status: "AGENDADO"}).lean().exec(
     function (e, docs) {
