@@ -46,7 +46,7 @@ app.get('/getPedidos', (req, res) => {
     })  
 })
 
-app.get('/FinalizarPedido', (req, res) => {
+app.post('/FinalizarPedido', (req, res) => {
    let json = JSON.parse(req.query[0])
   Pedido.findOneAndUpdate({_id: json.id}, {status: "FINALIZADO"}, function(err, doc) {
             if (err) return res.send(500, {error: err});
