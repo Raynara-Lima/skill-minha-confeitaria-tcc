@@ -45,7 +45,13 @@ app.post('/AdicionarPedido', (req, res) => {
 
 app.get('/getPedidosCli', (req, res) => {
    let json = JSON.parse(req.query[0])
-  Pedido.find({nomeCli: json.nomeCli, status: "AGENDADO"}).lean().exec(
+   let statusPedido;
+  if(json.statusPedido === "FINALIZADO"){
+    statusPedido = "FINALIZADO"
+  }else{
+    statusPedido = "AGENDADO"
+  }
+  Pedido.find({nomeCli: json.nomeCli, status: statusPedido}).lean().exec(
     function (e, docs) {
       if(docs === null){
         res.send({code: 0})
