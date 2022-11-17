@@ -40,8 +40,8 @@ app.get('/FinalizarPedido', (req, res) => {
       if(docs === null){
         res.send({code: 0})
       }else{
-        docss = docs
-        console.log(docs)
+         res.send(docs)
+
       }
     })  
 })
