@@ -17,7 +17,17 @@ app.get('/teste', async (req, res) => {
      return res.send({code: 1});
  })
 })
-
+app.get('/ConsultarIngredienteEstoque', (req, res) => {
+  let json = JSON.parse(req.query[0])
+  Pedido.find({dia: json.dia}).lean().exec(
+    function (e, docs) {
+      if(docs === null){
+        res.send({code: 0})
+      }else{
+        res.send(docs)
+      }
+    })  
+})
 app.post('/AdicionarPedido', (req, res) => {
    let json = JSON.parse(req.query[0])
   data = {"nomeCli": json.nomeCli, "hora": json.hora, "dia": json.dia, "produto": json.produto, "quantidade": json.quantidade, "status": json.status};
@@ -92,7 +102,7 @@ app.post('/AdicionarIngredienteEstoque', (req, res) => {
 });
 })
 
-app.post('/ConsultarIngredienteEstoque', (req, res) => {
+app.get('/ConsultarIngredienteEstoque', (req, res) => {
   let json = JSON.parse(req.query[0])
   Estoque.findOne({ingrediente: json.ingrediente}).lean().exec(
     function (e, docs) {
