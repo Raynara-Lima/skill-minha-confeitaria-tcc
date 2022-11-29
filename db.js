@@ -26,9 +26,9 @@ var estoqueSchema = new mongoose.Schema({
 );
 var fornoSchema = new mongoose.Schema({
         id: 0,
-        statusForno: Number,
-        statusNotificacao: Number,
-        temperatura: Number
+        statusForno: 0,
+        statusNotificacao: 0,
+        temperatura: 0
 }, {collection: 'forno' }
 );
 
