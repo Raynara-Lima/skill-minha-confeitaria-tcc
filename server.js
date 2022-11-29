@@ -184,7 +184,7 @@ app.get('/getInfosForno', async (req, res) => {
       async function (element) {
       let tempoRestante = calcularTempoRestante(element.hora, element.tempo)
       if(tempoRestante == 0){
-        await Forno.findOneAndUpdate({"id": 0}, {"notificacao": 1} ,{upsert: true}).exec()
+        await Forno.findOneAndUpdate({"id": 0}, {"statusNotificacao": 1} ,{upsert: true}).exec()
         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
       }
     })
