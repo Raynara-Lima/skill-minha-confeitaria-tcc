@@ -102,7 +102,16 @@ app.get('/ConsultarTempoRestante', (req, res) => {
       }
     })  
 })
-
+app.get('/ConsultarProdutosForno', (req, res) => {
+  ProdutoNoForno.findOne().lean().exec(
+    function (e, docs) {
+      if(docs === null){
+        res.send({code: 0})
+      }else{
+        res.send(docs)
+      }
+    })  
+})
 app.post('/AdicionarIngredienteEstoque', (req, res) => {
   let json = JSON.parse(req.query[0])
   data = {"ingrediente": json.ingrediente, "quantidade": json.quantidade};
