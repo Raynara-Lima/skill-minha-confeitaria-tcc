@@ -48,7 +48,8 @@ app.get('/getPedidosCli', (req, res) => {
   }else{
     statusPedido = "AGENDADO"
   }
-  Pedido.find({nomeCli: json.nomeCli, status: statusPedido}).lean().exec(
+
+  Pedido.find({nomeCli: json.nomeCli, status: statusPedido, dia: json.dia}).lean().exec(
     function (e, docs) {
       if(docs === null){
         res.send({code: 0})
