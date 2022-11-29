@@ -103,7 +103,7 @@ app.get('/ConsultarTempoRestante', (req, res) => {
     })  
 })
 app.get('/ConsultarProdutosForno', (req, res) => {
-  ProdutoNoForno.findOne().lean().exec(
+  ProdutoNoForno.find().lean().exec(
     function (e, docs) {
       if(docs === null){
         res.send({code: 0})
