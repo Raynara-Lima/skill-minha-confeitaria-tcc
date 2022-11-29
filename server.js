@@ -84,7 +84,7 @@ app.post('/DefinirTempoForno', (req, res) => {
           res.send(err)
         }
       else {
-        Forno.findOneAndUpdate({"id": 0}, {"isLigado": 1},{upsert: true}).exec()
+        Forno.findOneAndUpdate({"id": 0}, {"statusForno": 1},{upsert: true}).exec()
         res.send({code: 1})      
         }
       });
@@ -156,16 +156,23 @@ app.post('/ExcluirIngredienteEstoque', (req, res) => {
 
 app.get('/forno', (req, res) => {
   let json = JSON.parse(req.query[0]);
-  Forno.findOneAndUpdate({"id": 0}, {"isLigado": json.isLigado},{upsert: true}, function(err, doc) {
+  Forno.findOneAndUpdate({"id": 0}, {"statusForno": json.statusForno},{upsert: true}, function(err, doc) {
     if (err) return res.send({error: err});
     return res.send({code: 1});
   })
 })
 
 app.get('/setInfosForno', async (req, res) => {
-  Forno.findOneAndUpdate({"id": 0}, {"temperatura": req.query.temperatura}, {upsert: true}, function(err, doc) {
+ let dados;
+  if(req.query.statusNotificacao !== undefined){
+    dados =  {"statusNotificacao": req.query.statusNotificacao}
+  }
+  if(req.query.temperatura !== undefined){
+    dados =  {"temperatura": req.query.temperatura}
+  }
+  Forno.findOneAndUpdate({"id": 0}, dados, {upsert: true}, function(err, doc) {
       if (err) return res.send({error: err});
-      return res.send(req.query.temperatura);
+      return res.send(dados);
  })
 })
 app.get('/getInfosForno', async (req, res) => {
