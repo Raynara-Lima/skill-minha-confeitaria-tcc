@@ -163,10 +163,10 @@ app.get('/forno', (req, res) => {
 })
 
 app.get('/setInfosForno', async (req, res) => {
-  let json = JSON.stringfy(JSON.parse(req.query));
+  let json = JJSON.parse(req.query[0);
 //  Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0}, {upsert: true}, function(err, doc) {
 //      if (err) return res.send({error: err});
-      return res.send(json);
+      return res.send(json.temperatura);
  })
 })
 app.get('/getInfosForno', async (req, res) => {
