@@ -177,7 +177,6 @@ app.get('/setInfosForno', async (req, res) => {
 })
 app.get('/getInfosForno', async (req, res) => {
   let count = 0, forno;
-    await Forno.findOneAndUpdate({"id": 0}, {"statusNotificacao": 0} ,{upsert: true}).exec()
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
    const docs = await ProdutoNoForno.find().exec();
 
@@ -194,7 +193,7 @@ app.get('/getInfosForno', async (req, res) => {
     console.log("Count: ", count)
        forno = await Forno.findOne().lean().exec();
 
-    if(count === 0 && forno.statusNotificacao === 1){
+    if(count === 0){
       Forno.findOneAndUpdate({"id": 0}, {"statusForno": 0} ,{upsert: true}).exec();  
     }
     forno = await Forno.findOne().lean().exec();
