@@ -11,7 +11,9 @@ var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
+app.get('/', (req, res) => {
+        res.send("Seja bem vindo")
+})
 app.get('/ConsultarAgenda', (req, res) => {
   let json = JSON.parse(req.query[0])
   Pedido.find({dia: json.dia, "status": "AGENDADO"}).lean().exec(
@@ -184,7 +186,7 @@ app.get('/getInfosForno', async (req, res) => {
     console.log("Count: ", count)
    
     if(count === 0){
-      Forno.findOneAndUpdate({"id": 0}, {"isLigado": 0} ,{upsert: true}).exec();  
+      Forno.findOneAndUpdate({"id": 0}, {"statusForno": 0} ,{upsert: true}).exec();  
     }
     forno = await Forno.findOne().lean().exec();
     res.send({"statusForno": forno.statusForno, "statusNotificacao": forno.notificacao, "temperatura": temperatura })
