@@ -191,27 +191,13 @@ app.get('/getInfosForno', async (req, res) => {
    count = await ProdutoNoForno.countDocuments({}).exec()
   
     console.log("Count: ", count)
-   
-    if(count === 0){
+       forno = await Forno.findOne().lean().exec();
+
+    if(count === 0 && forno.statusNotificacao === 1){
       Forno.findOneAndUpdate({"id": 0}, {"statusForno": 0} ,{upsert: true}).exec();  
     }
     forno = await Forno.findOne().lean().exec();
     res.send({"statusForno": forno.statusForno, "statusNotificacao": forno.statusNotificacao, "temperatura": forno.temperatura })
-
-
-//   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
-//     InfoJson.findOne().lean().exec(
-//         function (e, docs) {
-//             //  console.log(docs)
-//         res.send({"isLigado": docs.isLigado, "notificacao": docs.notificacao})
-//           // return callback(docs)
-
-//         });
-  
-//   let led = 0
-  
-//   json = {"message": led, "people": [{"name": "Cai Xuzhe", "craft": "Tiangong"}, {"name": "Chen Dong", "craft": "Tiangong"}, {"name": "Liu Yang", "craft": "Tiangong"}, {"name": "Sergey Prokopyev", "craft": "ISS"}, {"name": "Dmitry Petelin", "craft": "ISS"}, {"name": "Frank Rubio", "craft": "ISS"}, {"name": "Nicole Mann", "craft": "ISS"}, {"name": "Josh Cassada", "craft": "ISS"}, {"name": "Koichi Wakata", "craft": "ISS"}, {"name": "Anna Kikina", "craft": "ISS"}], "number": 10}
-// res.send(json)
 })
 
 
