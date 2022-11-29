@@ -163,10 +163,9 @@ app.get('/forno', (req, res) => {
 })
 
 app.get('/setInfosForno', async (req, res) => {
-  let json = JSON.parse(req.query[0);
-  Forno.findOneAndUpdate({"id": 0}, {"temperatura": json.temperatura}, {upsert: true}, function(err, doc) {
+  Forno.findOneAndUpdate({"id": 0}, {"temperatura": req.query.temperatura}, {upsert: true}, function(err, doc) {
       if (err) return res.send({error: err});
-      return res.send(json.temperatura);
+      return res.send(req.query.temperatura);
  })
 })
 app.get('/getInfosForno', async (req, res) => {
