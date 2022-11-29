@@ -189,7 +189,7 @@ app.get('/getInfosForno', async (req, res) => {
       Forno.findOneAndUpdate({"id": 0}, {"statusForno": 0} ,{upsert: true}).exec();  
     }
     forno = await Forno.findOne().lean().exec();
-    res.send({"statusForno": forno.statusForno, "statusNotificacao": forno.notificacao, "temperatura": temperatura })
+    res.send({"statusForno": forno.statusForno, "statusNotificacao": forno.statusNotificacao, "temperatura": forno.temperatura })
 
 
 //   var InfoJson = db.Mongoose.model('forno', db.fornoSchema, 'forno');
