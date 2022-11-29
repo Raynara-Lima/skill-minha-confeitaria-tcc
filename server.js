@@ -11,12 +11,7 @@ var Estoque = db.Mongoose.model('estoque', db.estoqueSchema, 'estoque');
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-app.get('/teste', async (req, res) => {
- Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0}, {upsert: true}, function(err, doc) {
-     if (err) return res.send({error: err});
-     return res.send({code: 1});
- })
-})
+
 app.get('/ConsultarAgenda', (req, res) => {
   let json = JSON.parse(req.query[0])
   Pedido.find({dia: json.dia, "status": "AGENDADO"}).lean().exec(
@@ -165,8 +160,13 @@ app.get('/forno', (req, res) => {
   })
 })
 
-
-app.get('/', async (req, res) => {
+app.get('/setInfosForno', async (req, res) => {
+ Forno.findOneAndUpdate({"id": 0}, {"notificacao": 0}, {upsert: true}, function(err, doc) {
+     if (err) return res.send({error: err});
+     return res.send({code: 1});
+ })
+})
+app.get('/getInfosForno', async (req, res) => {
   let count = 0, forno;
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
    const docs = await ProdutoNoForno.find().exec();
