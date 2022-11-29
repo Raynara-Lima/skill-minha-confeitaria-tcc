@@ -187,15 +187,12 @@ app.get('/getInfosForno', async (req, res) => {
         await Forno.findOneAndUpdate({"id": 0}, {"statusNotificacao": 1} ,{upsert: true}).exec()
         await ProdutoNoForno.findOneAndDelete({"nomePro": element.nomePro}).exec()
       }
+      count = await ProdutoNoForno.countDocuments({}).exec()
+      if(count === 0){
+        Forno.findOneAndUpdate({"id": 0}, {"statusForno": 0} ,{upsert: true}).exec();  
+      }
     })
-   count = await ProdutoNoForno.countDocuments({}).exec()
-  
-    console.log("Count: ", count)
-       forno = await Forno.findOne().lean().exec();
-
-    if(count === 0){
-      Forno.findOneAndUpdate({"id": 0}, {"statusForno": 0} ,{upsert: true}).exec();  
-    }
+ 
     forno = await Forno.findOne().lean().exec();
     res.send({"statusForno": forno.statusForno, "statusNotificacao": forno.statusNotificacao, "temperatura": forno.temperatura })
 })
