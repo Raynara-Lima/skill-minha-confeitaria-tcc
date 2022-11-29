@@ -177,6 +177,7 @@ app.get('/setInfosForno', async (req, res) => {
 })
 app.get('/getInfosForno', async (req, res) => {
   let count = 0, forno;
+    await Forno.findOneAndUpdate({"id": 0}, {"statusNotificacao": 0} ,{upsert: true}).exec()
   var ProdutoNoForno = db.Mongoose.model('produtoNoForno', db.produtoNoFornoSchema, 'produtoNoForno');
    const docs = await ProdutoNoForno.find().exec();
 
