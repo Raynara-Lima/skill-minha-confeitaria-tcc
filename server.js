@@ -25,7 +25,7 @@ app.get('/ConsultarAgenda', (req, res) => {
       }
     })  
 })
-app.post('/AdicionarPedido', (req, res) => {
+app.post('/AgendarPedido', (req, res) => {
    let json = JSON.parse(req.query[0])
   data = {"nomeCli": json.nomeCli, "hora": json.hora, "dia": json.dia, "produto": json.produto, "quantidade": json.quantidade, "status": json.status};
   var pedido = new Pedido(data);
