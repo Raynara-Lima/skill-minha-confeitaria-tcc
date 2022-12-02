@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 app.post('/iniciar', (req, res) => {
       Forno.findOneAndUpdate({"id": 0},{"id": 0, "statusForno": 0, "statusNotificacao": 0, temperatura: 0}, {upsert: true}, function(err, doc) {
       if (err) return res.send({error: err});
-        return res,send(doc)
+        return res.send(doc)
     })
 })
 app.get('/ConsultarAgenda', (req, res) => {
