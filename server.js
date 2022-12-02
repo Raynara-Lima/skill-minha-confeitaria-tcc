@@ -99,7 +99,7 @@ app.post('/DefinirTempoForno', (req, res) => {
 
 app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req.query[0]);
-  ProdutoNoForno.findOne({nomePro: json.produto}).lean().exec(
+  ProdutoNoForno.find({nomePro: json.produto}).lean().exec(
     function (e, docs) {
       if(docs === null){
         res.send({code: 0})
