@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 })
 app.get('/ConsultarAgenda', (req, res) => {
   let json = JSON.parse(req.query[0])
-  Pedido.find({dia: json.dia, "status": "AGENDADO"}).lean().exec(
+  Pedido.find({dia: json.dia, "status": "agendado"}).lean().exec(
     function (e, docs) {
       if(docs === null){
         res.send({code: 0})
