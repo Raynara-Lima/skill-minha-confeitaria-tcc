@@ -43,10 +43,10 @@ app.post('/AgendarPedido', (req, res) => {
 app.get('/getPedidosCli', (req, res) => {
    let json = JSON.parse(req.query[0])
    let statusPedido;
-  if(json.statusPedido === "FINALIZADO"){
-    statusPedido = "FINALIZADO"
+  if(json.statusPedido === "finalizado"){
+    statusPedido = "finalizado"
   }else{
-    statusPedido = "AGENDADO"
+    statusPedido = "agendado"
   }
   let  filtro = {nomeCli: json.nomeCli, status: statusPedido, dia: json.dia}
   if(json.dia === undefined || json.dia === null){
