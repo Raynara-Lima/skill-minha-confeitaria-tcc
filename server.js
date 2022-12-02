@@ -14,7 +14,12 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
         res.send("Seja bem vindo")
 })
-
+app.post('/iniciar', (req, res) => {
+      Forno.findOneAndUpdate({"id": 0},{"id": 0, "statusForno": 0, "statusNotificacao": 0, temperatura: 0}, {upsert: true}, function(err, doc) {
+      if (err) return res.send({error: err});
+        return res,send(doc)
+    })
+})
 app.get('/ConsultarAgenda', (req, res) => {
   let json = JSON.parse(req.query[0])
   Pedido.find({dia: json.dia, "status": "agendado"}).lean().exec(
@@ -221,8 +226,11 @@ app.get('/getInfosForno', async (req, res) => {
     })
  
     forno = await Forno.findOne().lean().exec();
-    res.send({"statusForno": forno.statusForno, "statusNotificacao": forno.statusNotificacao, "temperatura": forno.temperatura })
-})
+    if(forno === null){
+      res.send({"statusForno": 0, "statusNotificacao": 0, "temperatura": 0 })
+    }else{
+      res.send({"statusForno": forno.statusForno, "statusNotificacao": forno.statusNotificacao, "temperatura": forno.temperatura })
+    }})
 
 
 const calcularTempoRestante = (hora, tempo) =>{
