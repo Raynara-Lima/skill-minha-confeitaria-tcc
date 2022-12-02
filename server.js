@@ -101,11 +101,7 @@ app.get('/ConsultarTempoRestante', (req, res) => {
   let json = JSON.parse(req.query[0]);
   ProdutoNoForno.find({nomePro: json.produto}).lean().exec(
     function (e, docs) {
-      if(docs === null){
-        res.send({code: 0})
-      }else{
         res.send(docs)
-      }
     })  
 })
 app.get('/ConsultarProdutosForno', (req, res) => {
