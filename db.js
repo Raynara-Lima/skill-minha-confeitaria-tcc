@@ -13,7 +13,7 @@ var pedidoSchema = new mongoose.Schema({
 }, {collection: 'pedido' }
 );
 var produtoNoFornoSchema = new mongoose.Schema({
-        nomePro: {type: String, unique: true},
+        nomePro: String,
         hora: String, 
         tempo: String
 }, {collection: 'produtoNoForno' }
