@@ -48,8 +48,12 @@ app.get('/getPedidosCli', (req, res) => {
   }else{
     statusPedido = "AGENDADO"
   }
-
-  Pedido.find({nomeCli: json.nomeCli, status: statusPedido, dia: json.dia}).lean().exec(
+  let  filtro = {nomeCli: json.nomeCli, status: statusPedido}
+  if(json.data === undefined || json.data === null){
+    let filtro =  {nomeCli: json.nomeCli, status: statusPedido, dia: json.dia}
+  }
+   
+  Pedido.find(filtro).lean().exec(
     function (e, docs) {
       if(docs === null){
         res.send({code: 0})
