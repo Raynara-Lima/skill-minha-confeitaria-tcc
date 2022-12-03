@@ -165,7 +165,7 @@ app.post('/ExcluirIngredienteEstoque', (req, res) => {
     }) 
 })
 
-app.get('/LigarForno', (req, res) => {
+app.post('/LigarForno', (req, res) => {
 
   Forno.findOneAndUpdate({"id": 0}, {"statusForno": 1},{upsert: true}, function(err, doc) {
     if (err) return res.send({error: err});
@@ -173,7 +173,7 @@ app.get('/LigarForno', (req, res) => {
   })
 })
 
-app.get('/DesligarForno', async (req, res) => {
+app.post('/DesligarForno', async (req, res) => {
  const count = await ProdutoNoForno.countDocuments({}).exec()
  if(count > 0){
      return res.send({code: 0});
@@ -183,6 +183,13 @@ app.get('/DesligarForno', async (req, res) => {
     return res.send({code: 1});
   })
  }
+})
+
+app.post('/emergencia', async (req, res) => {
+  Forno.findOneAndUpdate({"id": 0}, {"statusForno": 0},{upsert: true}, function(err, doc) {
+    if (err) return res.send({error: err});
+    return res.send({code: 1});
+  })
 })
 
 app.get('/setInfosForno', async (req, res) => {
